@@ -72,9 +72,11 @@ public class Item {
      * @param currency      the currency
      * @param library       the library
      * @param isBorrowed    the is borrowed
+     * @param nfcId         the nfc id
      */
     public Item(ItemType type, ShelfMark shelfmark, Integer internalId, Integer purchasePrice, Boolean isLoanable,
-                List<Loan> loans, Condition condition, String currency, Library library, Boolean isBorrowed, String nfcId) {
+                List<Loan> loans, Condition condition, String currency, Library library, Boolean isBorrowed,
+                String nfcId) {
         this.type = type;
         this.shelfmark = shelfmark;
         this.internalId = internalId;

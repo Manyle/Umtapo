@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by axel on 14/04/17.
+ * The type Pairing service.
  */
 @Service
 public class PairingServiceImpl extends Thread {
@@ -45,7 +45,8 @@ public class PairingServiceImpl extends Thread {
      */
     public synchronized void setTagId(String tagId) {
 
-        if (this.pairingDto.getPairingType() == PairingType.BORROWER) {
+
+        if (this.pairingDto != null && this.pairingDto.getPairingType() == PairingType.BORROWER) {
             try {
                 Borrower borrower = this.borrowerService.findOne(this.pairingDto.getBorrowerId());
                 borrower.setNfcId(tagId);
@@ -55,7 +56,7 @@ public class PairingServiceImpl extends Thread {
             } catch (final Exception e) {
                 LOGGER.error("Error during setPairingDto : " + e);
             }
-        } else if (this.pairingDto.getPairingType() == PairingType.ITEM) {
+        } else if (this.pairingDto != null && this.pairingDto.getPairingType() == PairingType.ITEM) {
             try {
                 Item item = this.itemService.findOne(this.pairingDto.getItemId());
                 item.setNfcId(tagId);
@@ -65,20 +66,48 @@ public class PairingServiceImpl extends Thread {
             } catch (final Exception e) {
                 LOGGER.error("Error during setPairingDto : " + e);
             }
-        } else if (this.borrowerService.findByNfcId(tagId) != null) {
-            this.pairingDto.setPairingType(PairingType.BORROWER);
-        } else if (this.itemService.findByNfcId(tagId) != null) {
-            this.pairingDto.setPairingType(PairingType.ITEM);
-        }
+        } else {
+            Borrower borrower = this.borrowerService.findByNfcId(tagId);
+            Item item = null;
+            if (borrower == null) {
+                item = this.itemService.findByNfcId(tagId);
+            }
 
+
+            if (item != null) {
+                if (this.pairingDto != null && this.pairingDto.getBorrowerId() != null && !item.getBorrowed() && item.getLoanable()) {
+                    item.setBorrowed(true);
+                    this.itemService.save(item);
+                    // Websocket item it's loanable
+                } else if (item.getBorrowed()) {
+                    item.setBorrowed(false);
+                    this.itemService.save(item);
+                    // Websocket item it's not loanable
+                }
+            } else if (borrower != null) {
+                this.pairingDto = new PairingDto();
+                this.pairingDto.setPairingType(PairingType.BORROWER);
+                this.pairingDto.setBorrowerId(borrower.getId());
+            }
+        }
 
     }
 
+/**
+ * Sets pairing type.
+ *
+ * @param pairingDto the pairing dto
+ * <p>
+ * Sets pairing dto.
+ * @param pairingDto the pairing dto
+ */
+
     /**
-     * Sets pairing type.
+     * Sets pairing dto.
      *
      * @param pairingDto the pairing dto
      */
+
     public synchronized void setPairingDto(PairingDto pairingDto) {
 
         this.pairingDto = pairingDto;

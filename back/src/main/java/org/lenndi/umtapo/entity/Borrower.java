@@ -1,6 +1,7 @@
 package org.lenndi.umtapo.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +22,7 @@ public class Borrower {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
+    @Column(unique = true)
     private String nfcId;
     private String comment;
     private ZonedDateTime birthday;
@@ -37,6 +40,7 @@ public class Borrower {
      * Instantiates a new Borrower.
      */
     public Borrower() {
+        List<Loan> loans = new ArrayList<>();
     }
 
     /**

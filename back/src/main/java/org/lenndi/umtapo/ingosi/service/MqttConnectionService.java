@@ -8,7 +8,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import org.lenndi.umtapo.service.specific.implementation.PairingServiceImpl;
+import org.lenndi.umtapo.service.specific.implementation.PairingAndBorrowingServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -37,15 +37,15 @@ public class MqttConnectionService implements ApplicationListener<ApplicationRea
     @Value("${mqtt.port}")
     private String port;
     private MemoryPersistence persistence = new MemoryPersistence();
-    private final PairingServiceImpl pairingServiceImpl;
+    private final PairingAndBorrowingServiceImpl pairingAndBorrowingServiceImpl;
 
     /**
      * Instantiates a new Mqtt connection service.
      *
-     * @param pairingServiceImpl the pairing service
+     * @param pairingAndBorrowingServiceImpl the pairing service
      */
-    public MqttConnectionService(PairingServiceImpl pairingServiceImpl) {
-        this.pairingServiceImpl = pairingServiceImpl;
+    public MqttConnectionService(PairingAndBorrowingServiceImpl pairingAndBorrowingServiceImpl) {
+        this.pairingAndBorrowingServiceImpl = pairingAndBorrowingServiceImpl;
     }
 
 
@@ -92,7 +92,7 @@ public class MqttConnectionService implements ApplicationListener<ApplicationRea
     public void messageArrived(String topicName, MqttMessage mqttMessage) throws Exception {
 
         if (topicName.equals(this.pairingTopic)) {
-            this.pairingServiceImpl.setTagId(mqttMessage.toString());
+            this.pairingAndBorrowingServiceImpl.setTagId(mqttMessage.toString());
         }
     }
 }

@@ -8,65 +8,46 @@ import org.lenndi.umtapo.enumeration.PairingType;
  */
 public class PairingDto {
 
-    private String itemTag;
+
     private Integer borrowerId;
     private Integer itemId;
-    private String cardTag;
-    private String borrowerTag;
     private PairingType pairingType;
+    private Boolean waitPairing;
 
     /**
-     * Gets item id.
+     * Gets pairing type.
      *
-     * @return the item id
+     * @return the pairing type
      */
-    public Integer getItemId() {
-        return itemId;
+    public PairingType getPairingType() {
+        return pairingType;
     }
 
     /**
-     * Sets item id.
+     * Sets pairing type.
      *
-     * @param itemId the item id
+     * @param pairingType the pairing type
      */
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setPairingType(PairingType pairingType) {
+        this.pairingType = pairingType;
     }
 
     /**
-     * Gets card tag.
+     * Gets wait pairing.
      *
-     * @return the card tag
+     * @return the wait pairing
      */
-    public String getCardTag() {
-        return cardTag;
+    public Boolean getWaitPairing() {
+        return waitPairing;
     }
 
     /**
-     * Sets card tag.
+     * Sets wait pairing.
      *
-     * @param cardTag the card tag
+     * @param waitPairing the wait pairing
      */
-    public void setCardTag(String cardTag) {
-        this.cardTag = cardTag;
-    }
-
-    /**
-     * Gets item id.
-     *
-     * @return the item id
-     */
-    public String getItemTag() {
-        return itemTag;
-    }
-
-    /**
-     * Sets item id.
-     *
-     * @param itemTag the item id
-     */
-    public void setItemTag(String itemTag) {
-        this.itemTag = itemTag;
+    public void setWaitPairing(Boolean waitPairing) {
+        this.waitPairing = waitPairing;
     }
 
     /**
@@ -88,38 +69,20 @@ public class PairingDto {
     }
 
     /**
-     * Gets pairing type.
+     * Gets item id.
      *
-     * @return the pairing type
+     * @return the item id
      */
-    public PairingType getPairingType() {
-        return pairingType;
+    public Integer getItemId() {
+        return itemId;
     }
 
     /**
-     * Sets pairing type.
+     * Sets item id.
      *
-     * @param pairingType the pairing type
+     * @param itemId the item id
      */
-    public void setPairingType(PairingType pairingType) {
-        this.pairingType = pairingType;
-    }
-
-    /**
-     * Gets borrower tag.
-     *
-     * @return the borrower tag
-     */
-    public String getBorrowerTag() {
-        return borrowerTag;
-    }
-
-    /**
-     * Sets borrower tag.
-     *
-     * @param borrowerTag the borrower tag
-     */
-    public void setBorrowerTag(String borrowerTag) {
-        this.borrowerTag = borrowerTag;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 }

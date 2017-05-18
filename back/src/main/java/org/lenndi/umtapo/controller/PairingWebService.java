@@ -2,7 +2,7 @@ package org.lenndi.umtapo.controller;
 
 import org.lenndi.umtapo.dto.PairingDto;
 import org.lenndi.umtapo.enumeration.PairingType;
-import org.lenndi.umtapo.service.specific.implementation.PairingServiceImpl;
+import org.lenndi.umtapo.service.specific.implementation.PairingAndBorrowingServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PairingWebService extends Thread {
 
-    private final PairingServiceImpl pairingService;
+    private final PairingAndBorrowingServiceImpl pairingService;
 
     /**
      * Instantiates a new Pairing web service.
      *
      * @param pairingService the pairing service
      */
-    public PairingWebService(PairingServiceImpl pairingService) {
+    public PairingWebService(PairingAndBorrowingServiceImpl pairingService) {
         this.pairingService = pairingService;
     }
 

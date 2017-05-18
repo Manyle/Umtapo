@@ -1,6 +1,6 @@
 export class Pairing {
-  itemTag: string;
+  itemId: number;
   borrowerId: number;
-  borrowerTag: string;
   pairingType: string;
+  waitPairing: boolean;
 }

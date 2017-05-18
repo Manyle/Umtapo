@@ -5,6 +5,7 @@ import org.lenndi.umtapo.enumeration.ItemType;
 import org.lenndi.umtapo.solr.document.bean.record.Record;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,6 +36,7 @@ public class Item {
     private ShelfMark shelfmark;
     @NotNull
     private Integer internalId;
+    @Column(unique = true)
     private String nfcId;
     private Integer purchasePrice;
     private Boolean loanable;
